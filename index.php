@@ -2,8 +2,6 @@
 require 'dirset.php';
 include $strRootP.'\include\page-top.php';
 
-include 'index.core.php';
-
 include $strRootP.'include\head.php';
 ?>
 </head>
@@ -11,6 +9,7 @@ include $strRootP.'include\head.php';
 <?php include $strRootP.'template\content-before.php';?>
 
 <div class="container">
+    <?php if(isset($_SESSION['userInfo'])): ?>
     <div class="panel panel-default">
         <div class="panel-heading"><h4>New Customer</h4></div>
         <div class="panel-body">
@@ -86,6 +85,7 @@ include $strRootP.'include\head.php';
             </form>
         </div>
     </div>
+    <?php endif;?>
 
     <div class="panel panel-default">
         <div class="panel-heading"><h4>Queue</h4></div>
@@ -113,13 +113,7 @@ include $strRootP.'include\head.php';
                         $queueTime = date('H:i', strtotime($row['qu_time']));
                         $name = $row['qu_name'];
 
-                        $string .= '<tr>';
-                        $string .= '<th>'.$iCnt.'</th>';
-                        $string .= '<th>'.$customerType.'</th>';
-                        $string .= '<th>'.$name.'</th>';
-                        $string .= '<th>'.$serviceName.'</th>';
-                        $string .= '<th>'.$queueTime.'</th>';
-                        $string .= '</tr>';
+                        $string .= showRecord($iCnt, $customerType, $name, $serviceName, $queueTime);;
 
                         $iCnt++;
                     }

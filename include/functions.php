@@ -1,4 +1,5 @@
 <?php
+// Get the list of services from DB
 function getServicesList(){
 	global $db;
 	
@@ -12,6 +13,7 @@ function getServicesList(){
 }
 //=====================================
 
+// Get the queue list from DB
 function getQueueList(){
 	global $db;
 	
@@ -27,6 +29,7 @@ function getQueueList(){
 }
 //=====================================
 
+// Get a specific service name from DB using provided service id
 function getServiceName($service){
 	global $db;
 	
@@ -43,7 +46,21 @@ function getServiceName($service){
 }
 //=====================================
 
+// Load customers type list from a JSON file
 function getCustomerType($path){
 	return json_decode(file_get_contents($path.'\data\customer-type.json'), true);
 }
 //=====================================
+
+// Prepare a queue list table row to show
+function showRecord($rowNumber, $customerType, $name, $serviceName, $queueTime){
+    $string = '<tr>';
+    $string .= '<th>'.$rowNumber.'</th>';
+    $string .= '<th>'.$customerType.'</th>';
+    $string .= '<th>'.$name.'</th>';
+    $string .= '<th>'.$serviceName.'</th>';
+    $string .= '<th>'.$queueTime.'</th>';
+	$string .= '</tr>';
+	
+	return $string;
+}

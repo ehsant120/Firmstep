@@ -1,5 +1,6 @@
 <?php
 // http://culttt.com/2012/10/01/roll-your-own-pdo-php-class/
+// Custom Database wrapper for PDO
 
 class Database{
 	private $host = DB_HOST;

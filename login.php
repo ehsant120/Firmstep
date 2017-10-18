@@ -2,7 +2,8 @@
 require 'dirset.php';
 include $strRootP.'\include\page-top.php';
 
-include 'index.core.php';
+$msg = '';
+include 'login.core.php';
 
 include $strRootP.'include\head.php';
 ?>
@@ -18,7 +19,7 @@ include $strRootP.'include\head.php';
                     <strong> Sign in to continue</strong>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="#" method="POST">
+                    <form id="frmLogin" role="form" method="POST">
                         <fieldset>
                             <div class="row">
                                 <div class="center-block">
@@ -33,20 +34,26 @@ include $strRootP.'include\head.php';
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-user"></i>
                                             </span> 
-                                            <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                                            <input class="form-control" placeholder="Username" id="txtUsername" name="txtUsername" type="text" autofocus>
                                         </div>
+                                        <div id="divLoginnameError" class="error" hidden>Please enter username</div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="glyphicon glyphicon-lock"></i>
                                             </span>
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                            <input class="form-control" placeholder="Password" id="txtPassword" name="txtPassword" type="password" value="">
                                         </div>
+                                        <div id="divPasswordError" class="error" hidden>Please enter password</div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                                        <input type="submit" name="btnSubmit" class="btn btn-lg btn-primary btn-block" value="Sign in">
                                     </div>
+                                    <?php
+                                    if(!empty($msg))
+                                        echo '<div class="alert alert-danger text-center">'.$msg.'</div>';
+                                    ?>
                                 </div>
                             </div>
                         </fieldset>

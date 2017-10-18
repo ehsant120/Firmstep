@@ -1,20 +1,12 @@
 <?php
-require 'dirset.php';
-include $strRootP.'\include\page-top.php';
-
 $msg = '';
 $arrCustomerType = getCustomerType($strRootP);
+$_SESSION['userInfo']['userID'] = 1;
 
-if(isset($_SESSION['userInfo'])){
+if(isset($_POST['btnSubmit']) && isset($_SESSION['userInfo'])){
     extract($_POST);
     $currentDateTime = date("Y-m-d H:i:s");
-    $name = '';
-    if($rdbtnType == '1')
-        $name = $cmbTitle.' '.$txtFirstname.' '.$txtLastname;
-    elseif($rdbtnType == '2')
-        $name = $txtOrganisationName;
-    elseif($rdbtnType == '3')
-        $name = array_search($rdbtnType, $arrCustomerType);
+    $name = $cmbTitle.' '.$txtFirstname.' '.$txtLastname;
 
     $strSQL = "insert into queue(qu_type, qu_name, srv_id, qu_time, qu_usr_id)";
     $strSQL .= " values(:qu_type, :qu_name, :srv_id, :qu_time, :qu_usr_id)";
@@ -26,10 +18,6 @@ if(isset($_SESSION['userInfo'])){
     $db->query($strSQL);
     $db->bindArray($arrDBParam);
     $db->execute();
-
-    $customerType = array_search($rdbtnType, $arrCustomerType);
-    $serviceName = getServiceName($rdbtnService);
-    $queueTime = date('H:i', strtotime($currentDateTime));
-
-    echo showRecord('{{rowNumber}}', $customerType, $name, $serviceName, $queueTime);
+    $msg = 'Record created successfully';
+    unset($_SESSION['userInfo']['userID']);
 }

@@ -1,6 +1,5 @@
 $(document).ready(function(){
     $('#frmCustomer').submit(function(e){
-        var name = '';
         if(frmCustomerValidate()){
             $.post(
                 "save.php",
@@ -18,7 +17,34 @@ $(document).ready(function(){
         }
         e.preventDefault();
     })
+
+    $('#frmLogin').submit(function(e){
+        if(!frmLoginValidate())
+            return false;
+        else
+            return true;
+    })
 });
+
+function frmLoginValidate(){
+    var blnValid = true;
+
+    if(!$.trim($('#txtUsername').val())){
+        $('#divLoginnameError').show();
+        blnValid = false;
+    }
+    else
+        $('#divLoginnameError').hide();
+
+    if(!$.trim($('#txtPassword').val())){
+        $('#divPasswordError').show();
+        blnValid = false;
+    }
+    else
+        $('#divPasswordError').hide();
+
+    return blnValid;
+}
 
 function frmCustomerValidate(){
     var blnValid = true;
